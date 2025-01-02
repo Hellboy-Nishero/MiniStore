@@ -3,8 +3,8 @@ import React from 'react'
 const BlogList = ({source}) => {
     const formatDate = (dateString) => {
         const months = [
-            "ЯНВ", "ФЕВ", "МАР", "АПР", "МАЙ", "ИЮН",
-            "ИЮЛ", "АВГ", "СЕН", "ОКТ", "НОЯ", "ДЕК"
+            "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+            "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
           ];
 
         const [year, month, day] = dateString.split("-");
