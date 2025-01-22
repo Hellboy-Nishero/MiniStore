@@ -12,15 +12,20 @@ const BlogList = ({source}) => {
 
         return `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
     }
+
+
+    const latest__blogs = source.slice(-3);
+
+
   return (
     <div className='blogs'>
         <div className="list__header">
             <h2 className='list__title'>latest posts</h2>
-            <a href='#' className='list__link'>read blogs</a>
+            <Link to={`/blogs`} className='list__link'>read blogs</Link>
         </div>
         <div className="blog__list">
             {
-                source && source.map((item, index) =>
+                source && latest__blogs.map((item, index) =>
                     index < 3 ? 
                     <div key={item.id} className="blog__item">
                         <div className="blog__img">
