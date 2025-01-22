@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import React from 'react'
 
 const BlogList = ({source}) => {
@@ -25,7 +26,7 @@ const BlogList = ({source}) => {
                         <div className="blog__img">
                             <img src={item.image} alt="" />
                             <div className="overlay">
-                                <button className='btn btn-primary'>read blog</button>
+                                <Link to={`/blogs/${item.id}`} className='btn btn-primary'>read blog</Link>
                             </div>
                         </div>
                         <span className="info__blog">{formatDate(item.date)} - {item.tags[0]}</span>

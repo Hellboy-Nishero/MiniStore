@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import products from '../data/products'
 import blogs from '../data/blogs'
@@ -11,21 +11,9 @@ import Reviews from '../components/Reviews/Reviews'
 import Footer from '../components/Footer/Footer'
 import Subscription from '../components/Subscription/Subscription'
 import { Link } from 'react-router';
-import storage from '../data/storage';
 
 const Home = () => {
 
-    const [count, setCount] = useState(storage.count);
-
-    const changeCount = () => {
-        let currentCount = parseInt(storage.getItem("count")) || 0;
-        let newCount = currentCount + 1;
-        storage.setItem("count", newCount);
-        console.log(storage.getItem("count"));
-        setCount(newCount);
-    }
-
-    const [filter, setFilter] = useState("");
 
     //shows filtered list of products
     const showProducts = (filter) => {
@@ -33,9 +21,10 @@ const Home = () => {
       if(filter === "smartwatches") return products.filter(item => item.category === "smartwatches");
     }
 
+    
   return (
     <div className='container'>
-        <Navbar active={"home"} count={count} />
+        <Navbar active={"home"}/>
         <header className="home-header">
         <div className="home-content">
             <div className="header-left">
@@ -58,15 +47,13 @@ const Home = () => {
         <section className='products-section'>
             <ProductList
             title="mobile products"
-            source={showProducts("smartphones")} 
-            incrementCount={changeCount}/>
+            source={showProducts("smartphones")} />
         </section>
 
         <section className='products-section'>
             <ProductList
             title="smartwatches"
-            source={showProducts("smartwatches")} 
-            incrementCount={changeCount}/>
+            source={showProducts("smartwatches")} />
         </section>
 
         <section className='sales-section'>

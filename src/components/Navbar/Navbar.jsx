@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Search } from "lucide-react";
 import { User } from "lucide-react";
 import { ShoppingCart } from 'lucide-react';
 import {Link, useLocation} from 'react-router';
-import storage from'../../data/storage'
+import { ProductContext } from '../../context/ProductContext';
 
-const Navbar = ({active, count}) => {
+const Navbar = ({active}) => {
+
+    const {count} = useContext(ProductContext);
 
     const [activeLink, setActiveLink] = useState("");
 
@@ -19,7 +21,6 @@ const Navbar = ({active, count}) => {
     }, [active]);
 
     useEffect(() => {
-        // storage.count = count;
     }, [count])
     
   return (
@@ -30,6 +31,7 @@ const Navbar = ({active, count}) => {
                 <Link className={`${activeLink === "home" ? "active" : ""}`} to={"/"}>home</Link>
                 <Link className={`${activeLink === "about" ? "active" : ""}`}  to={"/about"}>about</Link>
                 <Link className={`${activeLink === "blogs" ? "active" : ""}`} to={"/blogs"}>blogs</Link>
+                <Link className={`${activeLink === "shop" ? "active" : ""}`} to={"/shop"} >shop</Link>
                 <Link className={`${activeLink === "contact" ? "active" : ""}`}  to={"/contact"}>contact</Link>
             </div>
             <div className="icons">
@@ -41,7 +43,7 @@ const Navbar = ({active, count}) => {
                 </a>
                 <Link className='cart' to={"/cart"}>
                     <ShoppingCart className='shopping-cart' size={15} />
-                    <p className='counter'>({storage.getItem("count")})</p>
+                    <p className='counter'>({count})</p>
                 </Link>
             </div>
         </div>

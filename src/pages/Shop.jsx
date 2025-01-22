@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Header from '../components/Header/Header';
 import Subscription from '../components/Subscription/Subscription';
@@ -8,13 +8,14 @@ import { ShoppingCart } from 'lucide-react';
 import { Search } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/navigation'
-import storage from '../data/storage';
+import { Link } from 'react-router';
+import { ProductContext } from '../context/ProductContext';
 
 const Shop = () => {
 
     const [categories, setCategories] = useState([]);
 
-    const [count, setCount] = useState(storage.count);
+    const {addedProducts, setAddedProducts, setCount} = useContext(ProductContext);
 
     const [filteredProducts, setFilteredProducts] = useState(products);
 
@@ -34,7 +35,7 @@ const Shop = () => {
 
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-    const currentProducts = filteredProducts.slice((currentPage -1 ) * itemsPerPage, currentPage * itemsPerPage)
+    const currentProducts = filteredProducts.slice((currentPage - 1 ) * itemsPerPage, currentPage * itemsPerPage)
 
     const pageElements = [];
     for(let i = 0; i < totalPages; i++){
@@ -44,12 +45,31 @@ const Shop = () => {
     let startIndex = (currentPage - 1) * itemsPerPage + 1;
     let endIndex = Math.min(currentPage * itemsPerPage, filteredProducts.length);
 
-    const changeCount = () => {
-        let currentCount = parseInt(storage.getItem("count")) || 0;
-        let newCount = currentCount + 1;
-        storage.setItem("count", newCount);
-        setCount(newCount);
-    }
+    const handleAddToCart = (product) => {
+        let productToAdd = {...product, quantity: 1, subtotal: product.price};
+        let foundProduct = addedProducts.find(product => product.id === productToAdd.id);
+        if(!foundProduct){
+          setAddedProducts(prevProducts => [...prevProducts, productToAdd]);
+          setCount(prevCount => prevCount + 1);
+        } else{
+          setAddedProducts(prevProducts => {
+            let newProducts = prevProducts.map (item => {
+              if(item.id === productToAdd.id){
+                if((item.quantity + 1) < product.stock){
+                  let newQuantity = item.quantity + 1;
+                  return {...item, quantity: newQuantity, subtotal: item.price * newQuantity};
+                } else {
+                  return {...item, quantity: product.stock, subtotal: item.price * product.stock}
+                }
+              } else {
+                return item;
+              }
+            })
+            return newProducts;
+          }
+          );
+        }
+      }
 
 
     const searchItems = (e) => {
@@ -115,13 +135,11 @@ const Shop = () => {
 
     const showPrevPage = () => {
         setCurrentPage(prevPage => prevPage - 1);
-        console.log(currentPage);
     } 
 
 
     const showNextPage = () => {
         setCurrentPage(prevPage => prevPage + 1);
-        console.log(currentPage);
     } 
 
 
@@ -151,7 +169,7 @@ const Shop = () => {
 
   return (
     <div className='container'>
-        <Navbar count={count} />
+        <Navbar active={"shop"} />
         <Header active={"Shop"} />
 
         <main className="main-content">
@@ -170,12 +188,13 @@ const Shop = () => {
                                     <div className="product__img">
                                         <img src={item.image}></img>
                                         <div className="overlay">
-                                            <button onClick={changeCount} className='btn btn-primary'>add to cart <ShoppingCart size={14} className='shopping-cart' /></button>
+                                            <Link to={`${item.id}`} className='btn btn-secondary'>To product</Link>
+                                            <button onClick={() => handleAddToCart(item)} className='btn btn-primary'>add to cart <ShoppingCart size={14} className='shopping-cart' /></button>
                                         </div>
                                     </div>
                                     <div className="product__footer">
                                         <h3 className="product__title">{item.name}</h3>
-                                        <span className='product__price'>${item.price}</span>
+                                        <span className='product__price'>${item.price.toFixed(2)}</span>
                                     </div>
                                 </div>
                             )

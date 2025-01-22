@@ -27,6 +27,7 @@ const footer = () => {
                 <Link to={"/"}>home</Link>
                 <Link to={"/about"}>about</Link>
                 <Link to={"/blogs"}>blogs</Link>
+                <Link to={"/shop"}>shop</Link>
                 <Link to={"/contact"}>contact</Link>
             </div>
 
@@ -57,7 +58,7 @@ const footer = () => {
                 </span>
             </div>
             <div className="footer-right">
-                <span className='copyright'>© Copyright 2023 MiniStore. Design by <span className='designer'>TemplatesJungle</span></span>
+                <span className='copyright'>© Copyright 2025 MiniStore. Design by <span className='designer'>TemplatesJungle</span></span>
             </div>
         </div>
     </footer>
