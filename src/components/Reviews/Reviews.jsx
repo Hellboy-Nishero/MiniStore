@@ -7,13 +7,11 @@ import Stars from './Stars';
 
 
 const Reviews = ({source}) => {
-    const preventSwiperFromSwiping = (e) => {
-        e.stopPropogation();
-    }
+
   return (
     <div className='reviews'>
         <div className="reviews__header">
-            <img src='../public/Vector.png'></img>
+            <img src='/Vector.png'></img>
         </div>
         <Swiper 
         className='slider-container'

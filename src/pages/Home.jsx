@@ -32,7 +32,7 @@ const Home = () => {
                 <Link className='btn btn-primary' to={"/shop"}>shop product</Link>
             </div>
             <div className="header-right">
-                <img src="../public/daniel-korpai-hbTKIbuMmBI-unsplash%20(3).svg" alt="" />
+                <img src="/daniel-korpai-hbTKIbuMmBI-unsplash%20(3).svg" alt="" />
             </div>
         </div>
         </header>
@@ -64,7 +64,7 @@ const Home = () => {
                 <Link className='btn btn-primary' to={"/shop"}>shop sale</Link>
             </div>
             <div className="sales-right">
-                <img src='../public/aram-sabah-smVUoz8CSCw-unsplash%20(1).svg'></img>
+                <img src='/aram-sabah-smVUoz8CSCw-unsplash%20(1).svg'></img>
             </div>
             </div>
         </section>

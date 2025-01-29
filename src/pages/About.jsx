@@ -26,7 +26,7 @@ const About = () => {
             <section className='about-section'>
                 <div className="about-container">
                     <div className="about-left">
-                        <img src="../../public/video.svg" alt="" />
+                        <img src="/video.svg" alt="" />
                         <div className="overlay">
                             <button className="play"><Play size={24} /></button>
                         </div>
